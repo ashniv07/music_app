@@ -105,6 +105,7 @@
             border: 1px solid #ccc;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
+            position: relative; /* Add position relative */
         }
 
         .card img {
@@ -115,7 +116,17 @@
         .music-button {
             margin-top: 10px;
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: #6985a3;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .watch-later-button {
+            margin-top: 10px; /* Adjust margin to create space */
+            padding: 10px 20px;
+            background-color: #6985a3; /* Blue color for watch later button */
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -136,6 +147,7 @@
     </style>
 </head>
 <body>
+    <!-- Main content -->
     <div class="container">
         <div class="heading-container">
             <div class="heading">MyMusic</div>
@@ -158,6 +170,8 @@
             {% endif %}
         </div>
     </div>
+
+    <!-- Songs -->
     {% if query %}
         <h2>Search Results for "{{ query }}"</h2>
     {% else %}
@@ -166,15 +180,28 @@
     <div class="container card-container">
         {% for song in songs %}
         <div class="card">
-       
             <h3>{{ song.title }}</h3>
             <p>Artist: {{ song.artist }}</p>
             <audio src="{{ song.audio_file.url }}" controls></audio>
             <button class="music-button">Play Music</button>
+            <button class="watch-later-button">Watch Later</button> <!-- Watch Later button -->
         </div>
         {% empty %}
         <p>No songs found.</p>
         {% endfor %}
+    </div>
+
+    <!-- Watch Later page -->
+    <div class="watch-later-container">
+        <h2 class="watch-later-heading">Watch Later</h2>
+        <div class="song-list">
+            <!-- Example song item -->
+            <div class="song-item">
+                <p class="song-title">Song Title 1</p>
+                <button class="remove-button">Remove</button>
+            </div>
+            <!-- Add more song items dynamically based on user's watch later list -->
+        </div>
     </div>
 </body>
 </html>

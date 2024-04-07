@@ -12,4 +12,5 @@ urlpatterns = [
     path('register/', views.register, name='register'),  # Register page
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
        path('about_us.html', views.about_us_view, name='about_us'),
+        
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -43,3 +43,6 @@ def register(request):
 def about_us_view(request):
     # Add any necessary logic here
     return render(request, 'about_us.html')
+# def watch_later_view(request):
+#     # Add logic here to retrieve and display the list of saved videos/items
+#     return render(request, 'music_player_app/watch_later.html')
