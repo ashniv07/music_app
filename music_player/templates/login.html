@@ -12,7 +12,7 @@
             height: 100vh;
             margin: 0;
             background-color: #d9ed92;
-            flex-direction: column; /* Align content in a column */
+            flex-direction: column;
         }
         .container {
             text-align: center;
@@ -20,7 +20,7 @@
             padding: 40px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px; /* Add margin below the form */
+            margin-bottom: 20px;
         }
         .container button {
             margin-top: 10px;
@@ -46,8 +46,8 @@
     </style>
 </head>
 <body>
-    <h1>MyMusic</h1> <!-- Added title -->
-    <div class="container"> <!-- Encapsulated the form in a container -->
+    <h1>MyMusic</h1>
+    <div class="container">
         <form method="post">
             <h2>Login</h2>
             {% csrf_token %}
@@ -55,7 +55,7 @@
             <button type="submit">Login</button>
         </form>
     </div>
-    <div> <!-- Added a div for the registration link -->
+    <div>
         <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
     </div>
 </body>

@@ -53,10 +53,9 @@ def add_to_watch_later(request, song_name):
         user_profile, created = UserProfile.objects.get_or_create(user=request.user)
         song = get_object_or_404(Song, title=song_name)
         user_profile.watch_later.add(song)
-        return redirect('watch_later')  # Redirect to the homepage or any other page
+        return redirect('watch_later')  
     else:
-        return redirect('login')  # Redirect to the login page if the user is not authenticated
-
+        return redirect('login')  
 @login_required
 def remove_from_watch_later(request, title):
     user_profile = UserProfile.objects.get(user=request.user)
@@ -73,8 +72,6 @@ def watch_later(request):
         return redirect('login')
     
 def about_us_view(request):
-    # Add any necessary logic here
+  
     return render(request, 'about_us.html')
-# def watch_later_view(request):
-#     # Add logic here to retrieve and display the list of saved videos/items
-#     return render(request, 'music_player_app/watch_later.html')    
+ 
