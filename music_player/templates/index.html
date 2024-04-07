@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Music Application</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #d9ed92; /* Set your desired background color */
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .heading-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 10px 20px;
+            background-color: #76c893;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .heading {
+            font-size: 36px;
+            font-weight: bold;
+            align-items: center;
+            color: #333;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+        }
+
+        .about-us {
+            font-size: 20px;
+            color: #224f97;
+        }
+
+        .about-us a {
+            color: #224f97; /* Blue color */
+            text-decoration: none;
+        }
+
+        .about-us a:hover {
+            color: #000; /* Black color on hover */
+        }
+
+        .search-form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .search-form input[type="text"] {
+            padding: 8px;
+            width: 300px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .search-form button {
+            padding: 8px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .auth-buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .auth-buttons a {
+            margin-left: 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #76c893;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card {
+            width: 300px;
+            margin: 20px;
+            padding: 20px;
+            background-color: #76c893;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .card img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+
+        .music-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        h2 {
+            text-align: center;
+            color: black;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: black;
+            font-size: 20px;
+          
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="heading-container">
+            <div class="heading">MyMusic</div>
+            <div class="about-us">
+                <p><a href="about_us.html">About Us</a></p>
+            </div>
+        </div>
+        <div class="search-form">
+            <form method="GET" action="{% url 'index' %}">
+                <input type="text" name="q" value="{{ query }}" placeholder="Search for songs...">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <div class="auth-buttons">
+            {% if user.is_authenticated %}
+                <p>Welcome, {{ user.username }}</p>
+            {% else %}
+                <a href="{% url 'login' %}" class="auth-button">Login</a>
+                <a href="{% url 'register' %}" class="auth-button">Register</a>
+            {% endif %}
+        </div>
+    </div>
+    {% if query %}
+        <h2>Search Results for "{{ query }}"</h2>
+    {% else %}
+        <h2>All Songs</h2>
+    {% endif %}
+    <div class="container card-container">
+        {% for song in songs %}
+        <div class="card">
+       
+            <h3>{{ song.title }}</h3>
+            <p>Artist: {{ song.artist }}</p>
+            <audio src="{{ song.audio_file.url }}" controls></audio>
+            <button class="music-button">Play Music</button>
+        </div>
+        {% empty %}
+        <p>No songs found.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>

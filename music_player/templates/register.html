@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #d9ed92; /* Set background color */
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column; /* Adjusted flex direction */
+
+        }
+
+        form {
+            background-color: #76c893;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-size: 20px; /* Added margin bottom */
+
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 30px; /* Added margin bottom */
+        }
+
+        button {
+            padding: 20px 30px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .register-text {
+            text-align: center;
+            margin-top: 10px; /* Added margin top */
+            color: #333; /* Set text color */
+        }
+
+        .title {
+            margin-bottom: 20px; /* Adjusted margin */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="title">MyMusic</h2> <!-- Adjusted margin -->
+        <form method="post">
+            <h2>Register here</h2> <!-- Added as a heading inside the form -->
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Sign Up</button>
+            
+        </form>
+    </div>
+</body>
+</html>
