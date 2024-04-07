@@ -1,9 +1,6 @@
 # music_app
 a project to develop a simple music application using django
 
-Sure, here's a sample README content for your music application:
-
----
 
 # MyMusic Application
 
