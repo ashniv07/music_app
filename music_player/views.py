@@ -4,6 +4,12 @@ from django.contrib.auth import authenticate, login
 from .models import Song
 from django.contrib.auth.decorators import login_required
 
+from .models import Song, UserProfile
+
+from django.shortcuts import get_object_or_404
+
+
+
 @login_required
 def index(request):
     query = request.GET.get('q')
@@ -40,9 +46,35 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'register.html', {'form': form})
+
+@login_required
+def add_to_watch_later(request, song_name):
+    if request.user.is_authenticated:
+        user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+        song = get_object_or_404(Song, title=song_name)
+        user_profile.watch_later.add(song)
+        return redirect('watch_later')  # Redirect to the homepage or any other page
+    else:
+        return redirect('login')  # Redirect to the login page if the user is not authenticated
+
+@login_required
+def remove_from_watch_later(request, title):
+    user_profile = UserProfile.objects.get(user=request.user)
+    song = Song.objects.get(title=title)
+    user_profile.watch_later.remove(song)
+    return redirect('index')
+
+def watch_later(request):
+    if request.user.is_authenticated:
+        user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+        watch_later_songs = user_profile.watch_later.all()
+        return render(request, 'watch_later.html', {'watch_later_songs': watch_later_songs})
+    else:
+        return redirect('login')
+    
 def about_us_view(request):
     # Add any necessary logic here
     return render(request, 'about_us.html')
 # def watch_later_view(request):
 #     # Add logic here to retrieve and display the list of saved videos/items
-#     return render(request, 'music_player_app/watch_later.html')
+#     return render(request, 'music_player_app/watch_later.html')    

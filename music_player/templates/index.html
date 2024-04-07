@@ -131,6 +131,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            text-decoration: none;
         }
 
         h2 {
@@ -142,7 +143,6 @@
         p {
             color: black;
             font-size: 20px;
-          
         }
     </style>
 </head>
@@ -184,24 +184,46 @@
             <p>Artist: {{ song.artist }}</p>
             <audio src="{{ song.audio_file.url }}" controls></audio>
             <button class="music-button">Play Music</button>
-            <button class="watch-later-button">Watch Later</button> <!-- Watch Later button -->
+            {% if user.is_authenticated %}
+                {% if song in user.userprofile.watch_later.all %}
+                    <a href="{% url 'remove_from_watch_later' song.title %}" class="watch-later-button">Remove</a>
+                {% else %}
+                    <a href="{% url 'add_to_watch_later' song.title %}" class="watch-later-button">Watch Later</a>
+                {% endif %}
+            {% endif %}
         </div>
         {% empty %}
         <p>No songs found.</p>
         {% endfor %}
     </div>
 
-    <!-- Watch Later page -->
-    <div class="watch-later-container">
-        <h2 class="watch-later-heading">Watch Later</h2>
-        <div class="song-list">
-            <!-- Example song item -->
-            <div class="song-item">
-                <p class="song-title">Song Title 1</p>
-                <button class="remove-button">Remove</button>
-            </div>
-            <!-- Add more song items dynamically based on user's watch later list -->
-        </div>
-    </div>
+    <!-- JavaScript function for adding to watch later list
+    <script>
+        function addToWatchLater(songId) {
+            fetch('/add_to_watch_later/' + songId, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    song_id: songId
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to add to watch later list');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data.message);
+                // Optionally, update the UI to indicate that the song was added to the watch later list
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        }
+    </script> -->
 </body>
 </html>

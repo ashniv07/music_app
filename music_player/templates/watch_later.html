@@ -1,19 +1,40 @@
-<!-- watch_later.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Watch Later</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #d9ed92; /* Cute background color */
+        }
+
+        .card {
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #76c893; /* Card background color */
+            text-align: center;
+            font-size: 30px ;
+        }
+    </style>
 </head>
 <body>
-    <h1>Watch Later</h1>
-    <!-- Display the list of saved videos/items here -->
-    <ul>
-        {% for video in saved_videos %}
-            <li>{{ video.title }}</li>
-        {% endfor %}
-    </ul>
+    <div class="card">
+        <h1>Watch Later</h1>
+        <ul>
+            {% for song in watch_later_songs %}
+                <li>{{ song.title }} - {{ song.artist }}</li>
+            {% empty %}
+                <li>No songs added to Watch Later</li>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 </html>
